@@ -9,7 +9,7 @@ load_dotenv()
 client = OpenAI()
 
 samples = []
-with open("./data_sample.json", "r") as f:
+with open("./data_subset_olive.json", "r") as f:
     for line in f:
         samples.append(eval(line.strip()))
 
@@ -22,6 +22,7 @@ def evaluate_prediction(client, question, answer, prediction):
               f"Don't output any other text content. You only can output True or False.")
     response = client.chat.completions.create(
       model="gpt-4o-2024-05-13",
+    #   model="gpt-5-mini-2025-08-07"
       messages=[
         {
           "role": "user",
@@ -45,18 +46,20 @@ def evaluate_prediction(client, question, answer, prediction):
     return response.choices[0].message.content
 
 def read_txt(path):
-    with open(path, "r") as f:
+    with open(path, "r", encoding='utf-8') as f:
         return f.read()
 
 save_path = "./save_process"
 # model = "gpt-3.5-turbo-0125"
-model = "gpt-4-turbo-2024-04-09"
+# model = "gpt-4-turbo-2024-04-09"
 # model = 'gpt-4o-2024-05-13'
 # model = 'llama-3-8b-instruct'
 # model = 'gpt-3.5-turbo-0125-autoagent'
 # model = 'gpt-4o-2024-05-13-autoagent'
 # model = 'llava-v1.5-13b'
 # model = 'llama3-autoagent'
+# model = "gpt-5-mini-2025-08-07"
+model = "gpt-5-nano-2025-08-07"
 
 results = []
 save_f = open(os.path.join(save_path, model, "results.json"), "w")

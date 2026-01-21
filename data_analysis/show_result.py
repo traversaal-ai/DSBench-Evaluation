@@ -4,21 +4,22 @@ import os
 
 
 samples = []
-with open("./data_sample.json", "r") as f:
+with open("./data_subset_olive.json", "r") as f:
     for line in f:
         samples.append(eval(line.strip()))
 
 def read_txt(path):
-    with open(path, "r") as f:
+    with open(path, "r", encoding='utf-8') as f:
         return f.read()
 
 save_path = "./save_process"
 # model = 'llava-v1.5-13b'
 # model = 'llama-3-8b-instruct'
 # model = "gpt-3.5-turbo-0125"
-model = "gpt-4-turbo-2024-04-09"
+# model = "gpt-4-turbo-2024-04-09"
 # model = 'gpt-4o-2024-05-13'
-
+# model = "gpt-5-mini-2025-08-07"
+model = "gpt-5-nano-2025-08-07"
 
 
 results = []

@@ -1,0 +1,10 @@
+__pycache__/
+.vscode/
+.DS_Store
+*.pyc
+
+.env
+.ipynb_checkpoints
+data_analysis/.ipynb_checkpoints
+data_analysis/data_old.zip
+data_analysis/save_process/gpt-5-nano-2025-08-07_copy

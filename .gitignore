@@ -3,7 +3,6 @@ __pycache__/
 .DS_Store
 *.pyc
 data_analysis/.env
-data_analysis/.env
 *.ipynb_checkpoints
 data_analysis/.ipynb_checkpoints
 data_analysis/data_old.zip
@@ -12,4 +11,3 @@ data_analysis/openrouter_testing.py
 data_analysis/openrouter_testing_v3.py
 data_analysis/folder_management.py
 data_analysis/test_results
-data_analysis/eval_GPT.ipynb

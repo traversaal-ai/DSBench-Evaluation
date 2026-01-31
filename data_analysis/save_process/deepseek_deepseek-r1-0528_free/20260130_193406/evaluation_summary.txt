@@ -1,0 +1,17 @@
+============================================================
+EVALUATION SUMMARY
+============================================================
+
+Model Used: deepseek_deepseek-r1-0528_free
+Timestamp: 20260130_193406
+Total Questions: 18
+Total Challenges: 2
+Total Inference Time: 1150.78 seconds
+Total Cost: $ 0.00
+Task Level Accuracy: 0.00 %
+Competition Level Accuracy: 0.00 %
+
+============================================================
+
+Accuracy for each challenge: [0.0, 0.0]
+Average accuracy for 2 challenges: 0.00 %

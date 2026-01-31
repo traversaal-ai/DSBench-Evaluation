@@ -1,0 +1,5 @@
+{"id": "00000038", "question_idx": 0, "model": "deepseek/deepseek-r1-0528:free", "input_tokens": 2539, "output_tokens": 660, "cost": 0.0, "time": 64.63900065422058, "response": ""}
+{"id": "00000038", "question_idx": 1, "model": "deepseek/deepseek-r1-0528:free", "input_tokens": 2535, "output_tokens": 450, "cost": 0.0, "time": 63.2752161026001, "response": ""}
+{"id": "00000038", "question_idx": 2, "model": "deepseek/deepseek-r1-0528:free", "input_tokens": 2544, "output_tokens": 850, "cost": 0.0, "time": 63.08752632141113, "response": ""}
+{"id": "00000038", "question_idx": 3, "model": "deepseek/deepseek-r1-0528:free", "input_tokens": 2541, "output_tokens": 840, "cost": 0.0, "time": 63.22611951828003, "response": ""}
+{"id": "00000038", "question_idx": 4, "model": "deepseek/deepseek-r1-0528:free", "input_tokens": 2534, "output_tokens": 510, "cost": 0.0, "time": 62.63964486122131, "response": ""}

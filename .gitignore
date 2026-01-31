@@ -12,4 +12,3 @@ data_analysis/openrouter_testing.py
 data_analysis/openrouter_testing_v3.py
 data_analysis/folder_management.py
 data_analysis/test_results
-data_analysis\.env

@@ -1,0 +1,17 @@
+============================================================
+EVALUATION SUMMARY
+============================================================
+
+Model Used: dsagent-backend-v1-fixed
+Timestamp: 20260209_171052
+Total Questions: 18
+Total Challenges: 2
+Total Inference Time: 1296.50 seconds
+Total Cost: $ 2.70
+Task Level Accuracy: 16.67 %
+Competition Level Accuracy: 11.54 %
+
+============================================================
+
+Accuracy for each challenge: [0.23076923076923078, 0.0]
+Average accuracy for 2 challenges: 11.54 %

@@ -1,0 +1,5 @@
+{"id": "00000038", "question_idx": 0, "error": "OpenRouter not configured. Set USE_OPENROUTER=true and OPENROUTER_API_KEY in .env", "model": "z-ai/glm-4.7"}
+{"id": "00000038", "question_idx": 1, "error": "OpenRouter not configured. Set USE_OPENROUTER=true and OPENROUTER_API_KEY in .env", "model": "z-ai/glm-4.7"}
+{"id": "00000038", "question_idx": 2, "error": "OpenRouter not configured. Set USE_OPENROUTER=true and OPENROUTER_API_KEY in .env", "model": "z-ai/glm-4.7"}
+{"id": "00000038", "question_idx": 3, "error": "OpenRouter not configured. Set USE_OPENROUTER=true and OPENROUTER_API_KEY in .env", "model": "z-ai/glm-4.7"}
+{"id": "00000038", "question_idx": 4, "error": "OpenRouter not configured. Set USE_OPENROUTER=true and OPENROUTER_API_KEY in .env", "model": "z-ai/glm-4.7"}

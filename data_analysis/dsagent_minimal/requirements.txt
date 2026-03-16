@@ -1,0 +1,26 @@
+# conda create -n olive python=3.14 -y
+# conda activate olive
+
+# Core Data Science Packages
+pandas==3.0.0
+numpy==2.4.1
+
+# LLM API Packages
+anthropic==0.77.0
+openai==2.16.0
+
+# Visualization Packages
+plotly==6.5.2
+kaleido==1.2.0
+
+# Utility Packages
+requests==2.32.5
+tqdm==4.67.2
+python-dotenv==1.2.1
+
+# Excel File Support
+openpyxl==3.1.5
+
+# Jupyter Notebook Support
+ipywidgets==8.1.8
+ipykernel

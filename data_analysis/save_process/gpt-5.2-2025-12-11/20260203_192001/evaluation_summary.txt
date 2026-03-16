@@ -1,0 +1,17 @@
+============================================================
+EVALUATION SUMMARY
+============================================================
+
+Model Used: gpt-5.2-2025-12-11
+Timestamp: 20260203_192001
+Total Questions: 236
+Total Challenges: 2
+Total Inference Time: 131.23 seconds
+Total Cost: $ 0.55
+Task Level Accuracy: 29.66 %
+Competition Level Accuracy: 33.08 %
+
+============================================================
+
+Accuracy for each challenge: [0.46153846153846156, 0.2]
+Average accuracy for 2 challenges: 33.08 %

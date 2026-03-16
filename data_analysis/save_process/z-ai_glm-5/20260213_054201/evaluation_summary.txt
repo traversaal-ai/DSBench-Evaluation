@@ -1,0 +1,17 @@
+============================================================
+EVALUATION SUMMARY
+============================================================
+
+Model Used: z-ai_glm-5
+Timestamp: 20260213_054201
+Total Questions: 18
+Total Challenges: 2
+Total Inference Time: 2169.48 seconds
+Total Cost: $ 0.35
+Task Level Accuracy: 16.67 %
+Competition Level Accuracy: 23.85 %
+
+============================================================
+
+Accuracy for each challenge: [0.07692307692307693, 0.4]
+Average accuracy for 2 challenges: 23.85 %

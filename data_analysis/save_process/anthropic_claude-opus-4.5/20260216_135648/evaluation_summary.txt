@@ -1,0 +1,17 @@
+============================================================
+EVALUATION SUMMARY
+============================================================
+
+Model Used: anthropic_claude-opus-4.5
+Timestamp: 20260216_135648
+Total Questions: 236
+Total Challenges: 22
+Total Inference Time: 3715.22 seconds
+Total Cost: $ 50.81
+Task Level Accuracy: 26.69 %
+Competition Level Accuracy: 28.56 %
+
+============================================================
+
+Accuracy for each challenge: [0.38461538461538464, 0.0, 0.1, 0.0, 0.2222222222222222, 0.5, 0.2, 0.5, 0.18181818181818182, 0.25, 0.1, 0.1, 0.2, 0.2, 0.6666666666666666, 0.3, 0.1, 0.42857142857142855, 0.0, 1.0, 0.25, 0.6]
+Average accuracy for 22 challenges: 28.56 %

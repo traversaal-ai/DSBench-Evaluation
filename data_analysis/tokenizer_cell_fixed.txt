@@ -1,0 +1,112 @@
+# Initialize tokenizers
+class TokenizerManager:
+    def __init__(self):
+        self.tokenizers = {}
+        
+        # Initialize Claude tokenizer if available
+        if TRANSFORMERS_AVAILABLE:
+            try:
+                self.tokenizers['claude'] = GPT2TokenizerFast.from_pretrained('Xenova/claude-tokenizer')
+                print("Claude tokenizer loaded")
+            except Exception as e:
+                print(f"Could not load Claude tokenizer: {e}")
+                self.tokenizers['claude'] = None
+        
+        # Initialize Gemini/general tokenizer
+        if TRANSFORMERS_AVAILABLE:
+            try:
+                self.tokenizers['general'] = GPT2TokenizerFast.from_pretrained('gpt2')
+                print("General tokenizer loaded")
+            except Exception as e:
+                print(f"Could not load general tokenizer: {e}")
+                self.tokenizers['general'] = None
+    
+    def get_tokenizer(self, model_name: str):
+        """Get appropriate tokenizer for model"""
+        if model_name not in MODEL_CONFIGS:
+            print(f"Warning: Unknown model {model_name}, using general tokenizer")
+            provider = "general"
+        else:
+            provider = MODEL_CONFIGS[model_name]["provider"]
+        
+        # For OpenRouter models, determine tokenizer based on model name prefix
+        if provider == "openrouter":
+            if "openai" in model_name.lower() or "gpt" in model_name.lower():
+                # OpenAI models via OpenRouter
+                if TIKTOKEN_AVAILABLE:
+                    try:
+                        return tiktoken.get_encoding("cl100k_base")
+                    except Exception:
+                        return self.tokenizers.get('general')
+                return self.tokenizers.get('general')
+            elif "anthropic" in model_name.lower() or "claude" in model_name.lower():
+                # Claude models via OpenRouter - use OpenAI tokenizer for compatibility
+                # OpenRouter uses OpenAI-like tokenization, not Claude's native tokenizer
+                if TIKTOKEN_AVAILABLE:
+                    try:
+                        return tiktoken.get_encoding("cl100k_base")
+                    except Exception:
+                        return self.tokenizers.get('general')
+                return self.tokenizers.get('general')
+            else:
+                # Other OpenRouter models (Gemini, Deepseek, etc.)
+                return self.tokenizers.get('general')
+        
+        # For Vertex AI models (Claude via Google Cloud)
+        if provider == "vertex-ai":
+            # Vertex AI Claude models use Claude tokenizer
+            return self.tokenizers.get('claude') or self.tokenizers.get('general')
+        
+        # For OpenAI models (direct API), use tiktoken
+        if provider == "openai" and TIKTOKEN_AVAILABLE:
+            try:
+                return tiktoken.encoding_for_model(model_name)
+            except KeyError:
+                print(f"Model {model_name} not found in tiktoken, using cl100k_base")
+                return tiktoken.get_encoding("cl100k_base")
+        
+        # For Claude models (direct API)
+        if provider == "anthropic":
+            return self.tokenizers.get('claude') or self.tokenizers.get('general')
+        
+        # For Google and others
+        return self.tokenizers.get('general')
+    
+    def count_tokens(self, text: str, model_name: str) -> int:
+        """Count tokens in text for given model"""
+        tokenizer = self.get_tokenizer(model_name)
+        if tokenizer is None:
+            # Fallback to word count approximation
+            return int(len(text.split()) * 1.3)
+        
+        if hasattr(tokenizer, 'encode'):
+            return len(tokenizer.encode(text))
+        else:
+            return int(len(text.split()) * 1.3)
+    
+    def truncate_text(self, text: str, model_name: str, max_tokens: int) -> str:
+        """Truncate text to max_tokens for given model"""
+        tokenizer = self.get_tokenizer(model_name)
+        if tokenizer is None:
+            words = text.split()
+            return ' '.join(words[-int(max_tokens/1.3):])
+        
+        try:
+            tokens = tokenizer.encode(text)
+            if len(tokens) <= max_tokens:
+                return text
+            
+            # Keep the end of the text (most relevant for questions)
+            truncated_tokens = tokens[-max_tokens:]
+            
+            if hasattr(tokenizer, 'decode'):
+                return tokenizer.decode(truncated_tokens)
+            else:
+                words = text.split()
+                return ' '.join(words[-int(max_tokens/1.3):])
+        except Exception as e:
+            print(f"Error truncating text: {e}")
+            words = text.split()
+            return ' '.join(words[-int(max_tokens/1.3):])
+
+tokenizer_manager = TokenizerManager()

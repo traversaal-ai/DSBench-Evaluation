@@ -11,8 +11,8 @@ TIMESTAMP = None  # Set to timestamp to override, e.g., "20260127_200036"
 
 # If both are None, script will help you select interactively
 
-# DATA_JSON_PATH = "./data_subset_olive.json"
-DATA_JSON_PATH = "./data_sample.json"
+DATA_JSON_PATH = "./data_subset_olive.json"
+# DATA_JSON_PATH = "./data_sample.json"
 
 # ===================================
 

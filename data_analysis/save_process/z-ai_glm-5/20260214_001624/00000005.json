@@ -1,0 +1,10 @@
+{"id": "00000005", "question_idx": 0, "model": "z-ai/glm-5", "input_tokens": 45826, "output_tokens": 4096, "cost": 0.047146560000000004, "time": 129.96029901504517, "response": ""}
+{"id": "00000005", "question_idx": 1, "model": "z-ai/glm-5", "input_tokens": 45811, "output_tokens": 4096, "cost": 0.04713455999999999, "time": 59.97104835510254, "response": ""}
+{"id": "00000005", "question_idx": 2, "model": "z-ai/glm-5", "input_tokens": 45802, "output_tokens": 4096, "cost": 0.04712735999999999, "time": 183.78598308563232, "response": ""}
+{"id": "00000005", "question_idx": 3, "model": "z-ai/glm-5", "input_tokens": 45805, "output_tokens": 4096, "cost": 0.04712975999999999, "time": 118.26729893684387, "response": ""}
+{"id": "00000005", "question_idx": 4, "model": "z-ai/glm-5", "input_tokens": 45829, "output_tokens": 4096, "cost": 0.047148960000000004, "time": 163.83962512016296, "response": ""}
+{"id": "00000005", "question_idx": 5, "model": "z-ai/glm-5", "input_tokens": 45801, "output_tokens": 4096, "cost": 0.04712656, "time": 112.72583556175232, "response": ""}
+{"id": "00000005", "question_idx": 6, "model": "z-ai/glm-5", "input_tokens": 45827, "output_tokens": 4096, "cost": 0.04714736, "time": 185.7322120666504, "response": ""}
+{"id": "00000005", "question_idx": 7, "model": "z-ai/glm-5", "input_tokens": 45819, "output_tokens": 4096, "cost": 0.047140959999999996, "time": 415.74898076057434, "response": ""}
+{"id": "00000005", "question_idx": 8, "model": "z-ai/glm-5", "input_tokens": 45792, "output_tokens": 4096, "cost": 0.04711936, "time": 116.76988387107849, "response": ""}
+{"id": "00000005", "question_idx": 9, "model": "z-ai/glm-5", "input_tokens": 45849, "output_tokens": 4096, "cost": 0.04716495999999999, "time": 200.03458642959595, "response": ""}

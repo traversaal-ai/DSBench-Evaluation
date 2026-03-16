@@ -7,8 +7,10 @@ data_analysis/.env
 *.ipynb_checkpoints
 data_analysis/.ipynb_checkpoints
 data_analysis/data_old.zip
+data.zip
 data_analysis/save_process_
 data_analysis/openrouter_testing.py
 data_analysis/openrouter_testing_v3.py
 data_analysis/folder_management.py
 data_analysis/test_results
+.claude/

@@ -1,0 +1,1 @@
+{"id": "00000001", "question_idx": 0, "error": "_GenerativeModel.generate_content() got an unexpected keyword argument 'system_instruction'", "model": "vertex-ai/claude-opus-4-5@20251101"}

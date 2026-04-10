@@ -1,72 +1,236 @@
-# DSBench
-[![project page](https://img.shields.io/badge/Homepage-DSBench-blue)](https://liqiangjing.github.io/dsbench.github.io/)
-[![arxiv](https://img.shields.io/badge/arXiv-2409.07703-b31b1b.svg)](https://arxiv.org/abs/2409.07703)
+# DSBC : Data Science task Benchmarking with Context Engineering
 
-- [2025/07/17] 🔥 **DSBench** is used for OpenAI's new ChatGPT agent evaluation. [[Blog](https://openai.com/index/introducing-chatgpt-agent/)]
-- [2025/01/22] 🔥 **DSBench** is accepted by ICLR 2025.
+This repository evaluates Large Language Models on the [DSBC (Data Science Benchmarking)](https://huggingface.co/datasets/large-traversaal/DSBC-Queries-V2.0) dataset. It systematically tests LLM capabilities in data science code generation by generating responses to complex data science questions and evaluating them using LLM-based judges.
 
 
 
-This repo provides the source code of our paper: [DSBench: How Far are Data Science Agents from Becoming Data Science Experts?](https://arxiv.org/abs/2409.07703)
-[[PDF]](https://arxiv.org/pdf/2409.07703)[[Twitter]](https://twitter.com/wyu_nd/status/1835469391426973898) If you discuss or use DSBench in your research, please cite us!
-```bibtex
-@misc{jing2024dsbenchfardatascience,
-      title={DSBench: How Far Are Data Science Agents to Becoming Data Science Experts?}, 
-      author={Liqiang Jing and Zhehui Huang and Xiaoyang Wang and Wenlin Yao and Wenhao Yu and Kaixin Ma and Hongming Zhang and Xinya Du and Dong Yu},
-      year={2024},
-      eprint={2409.07703},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
-      url={https://arxiv.org/abs/2409.07703}, 
-}
+
+
+
+## Quick Start (3 Steps)
+
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Add your API keys to .env file
+# (see Configuration section below)
+
+# 3. Run evaluation
+python main.py --provider vertex_ai --model gemini-2.5-pro --judge-provider vertex_ai --judge-model gemini-2.0-flash
+python main.py --mode single --query "Your question" --filepath data.csv --provider claude --model claude-3.5-sonnet-20241022
+
+# Optional: Download fresh datasets if CSV files cause issues
+python -c "from generate_answers.datascience.load_datafiles import download_datasets; download_datasets()"
 ```
 
-## Overview
-DSBench is a benchmark for evaluating data science agents with 
-realistic data analysis and data modeling tasks collected from 
-modeloff and kaggle. 
-Given a *task instruction (may contain image and table)* and
-*data files*, a data science agent is tasked with generating 
-a *solution* that resolves the described task.
+## Features
 
-<p align="center">
-<img src="figures/overview.svg">
-</p>
+- **Multi-Provider LLM Support**: OpenAI, Google Gemini, Anthropic Claude, Vertex AI, Azure OpenAI, OpenRouter, and more
+- **Two Modes**: Full dataset evaluation or single query testing
+- **LLM-as-Judge Evaluation**: Uses LLMs to score and evaluate responses
+- **CLI**: Clean, argparse-based command-line interface
 
-## Set Up
-For evaluation, you should install the Python packages in the requirments.txt file.
+## Quick Start
+
+1. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Set up environment variables**:
+   Copy `env.example` to `.env` and configure your API keys:
+    ```bash
+    cp env.example .env
+    ```
+
+3. **Python**:
+
+```python
+from main import DSBCEvaluator
+
+# Create evaluator
+evaluator = DSBCEvaluator(
+    provider="vertex_ai",
+    model_name="gemini-2.5-pro",
+    temperature=0.3,
+    judge_provider="openai",
+    judge_model="gpt-4"
+)
+
+# Run dataset evaluation
+result_filename = evaluator.run_dataset_evaluation()
+
+# Run single query
+result = evaluator.run_single_query_evaluation(
+    query="What is the average sales?",
+    filepath="temp/datafiles/sales_dataset.csv"
+)
+```
+
+
+4. **Run evaluation CLI**:
+   ```bash
+   # Full dataset evaluation (default)
+   python main.py
+
+   # Single query test
+   python main.py --mode single --query "What is the average sales?" --filepath temp/datafiles/sales_dataset.csv
+   ```
+
+## Running the Dataset Evaluations
+
+### Complete Setup Guide
+
+#### Step 1: Install Dependencies
+```bash
+cd path/to/dsbc_evaluation
+pip install -r requirements.txt
+```
+
+#### Step 2: Configure API Keys
+Copy `env.example` to `.env` and configure your API keys:
+    ```bash
+    cp env.example .env
+    ```
+
+```bash
+# Basic usage (all 4 parameters required)
+python main.py --provider vertex_ai --model gemini-2.5-pro --judge-provider vertex_ai --judge-model gemini-2.0-flash
+
+# Custom generation model
+python main.py --provider openai --model gpt-4 --judge-provider vertex_ai --judge-model gemini-2.0-flash --temperature 0.7
+
+# Custom judge model
+python main.py --provider vertex_ai --model gemini-2.5-pro --judge-provider claude --judge-model claude-3-5-sonnet-20241022
+```
+
+### Single Query Testing Mode
+Test specific questions on specific datasets (requires only 2 parameters + query/filepath):
+
+```bash
+# Basic single query (only generation parameters needed)
+python main.py --mode single --query "What is the average sales by region?" --filepath temp/datafiles/sales_dataset.csv --provider vertex_ai --model gemini-2.5-pro
+
+# Different provider and model
+python main.py --mode single --query "Calculate correlation between price and sales" --filepath temp/datafiles/sales_dataset.csv --provider claude --model claude-3.5-sonnet-20241022
+
+
+
+# Evaluate with GPT-4 as judge instead of Gemini
+python main.py --provider vertex_ai --model gemini-2.5-pro --judge-provider openai --judge-model gpt-4
+
+```
+
 
 ## Usage
 
-1. Clone this repo.
-2. Install all the requirments in Set Up.
-3. For evaluation on data analysis task, refer to [./data_analysis/readme.md](https://github.com/LiqiangJing/DSBench/blob/main/data_analysis/readme.md).
-4. For evaluation on data modeling task, refer to [./data_modeling/readme.md](https://github.com/LiqiangJing/DSBench/blob/main/data_modeling/readme.md).
+### Command Line Interface
 
-## Results
+```bash
+dsbc-eval [OPTIONS]
 
-<p align="center">
-<img src="figures/result1.svg">
-</p>
-
-<p align="center">
-<img src="figures/result2.svg" width="600">
-</p>
-
-##  Disclaimer
-The dataset provided is intended solely for educational and research purposes, with the goal of fostering research in related areas. Users of this dataset are required to adhere to the following guidelines:
-
-- Data Source and Accuracy: While efforts have been made to curate and organize the data, we make no guarantees regarding the accuracy, completeness, or timeliness of the dataset. Users are encouraged to independently verify the data's accuracy and assume full responsibility for any conclusions drawn from it.
-
-- Usage Restrictions: This dataset is strictly for non-commercial use. Any commercial development or profit-driven activity requires explicit written permission from the dataset providers.
-
-- Privacy and Compliance: Users must ensure that their use of the dataset complies with all applicable laws and regulations, particularly those related to privacy and data security. The dataset providers are not responsible for any legal consequences arising from improper use of the data.
-
-- Non-Infringement: The pre-processed data provided by us is intended solely for educational and research purposes. We do not claim ownership of the original data, and any use of this data should respect the rights of the original creators. Users are responsible for ensuring that their use of the data does not infringe on any copyrights or other intellectual property rights.
-
-- Disclaimer of Liability: The dataset providers shall not be held liable for any direct or indirect consequences resulting from the use of this dataset, including but not limited to losses, damages, or liabilities arising from reliance on the information contained within the dataset.
+Options:
+  --provider TEXT          LLM provider for generation (required)
+  --model TEXT             Model name for generation (required)
+  --temperature FLOAT      Generation temperature (default: 0.3)
+  --judge-provider TEXT    LLM provider for evaluation (required for dataset mode)
+  --judge-model TEXT       Judge model name for evaluation (required for dataset mode)
+  --judge-temperature FLOAT Judge temperature (default: 0.2)
+  --mode [dataset|single]  Evaluation mode (default: dataset)
+  --query TEXT             Query for single mode (required for single mode)
+  --filepath TEXT          Dataset file path for single mode (required for single mode)
+  --help                   Show this message and exit
+```
 
 
 
+## Supported LLM Providers
+
+| Provider | Models | Setup Required |
+|----------|--------|----------------|
+| **vertex_ai** | Gemini 2.5 Pro,| GCP credentials |
+| **anthropic_vertex** | Claude Sonnet 4 | GCP credentials |
+| **openai** |GPT-5 | API key |
+| **claude** | Claude Sonnet 4, | API key |
+| **gemini** | Gemini 2.5 Pro | API key |
+| **azure** | GPT-4 on Azure | Azure credentials |
+| **openrouter** | Various models (gpt-5.1-codex, gpt-o4-mini, glm-4.5) | API key |
+
+See `generate_answers/ReadMe` for detailed provider setup instructions.
+
+## Project Structure
+
+```
+dsbc_evaluation/
+├── main.py                    # Main CLI and DSBCEvaluator class
+├── requirements.txt           # Python dependencies
+├── generate_answers/          # Answer generation module
+│   ├── llm_clients.py        # Multi-provider LLM client library
+│   ├── dsbc_answers.py       # Dataset processing logic
+│   └── datascience/          # Data science utilities
+├── evaluations/               # Evaluation module
+│   └── llm_as_judge.py       # LLM-based evaluation
+└── temp/                     # Data and results directory
+    ├── datafiles/            # Input datasets (CSV files)
+    │   └── *Note: If CSV files cause issues, run download_datasets() from generate_answers/datascience/load_datafiles.py to get fresh datasets from source
+    ├── processed_data/       # Generated responses
+    ├── evaluated_data/       # Evaluation results
+    └── results/              # Final evaluation summaries
+```
 
 
+
+
+
+## Output Files
+
+- **Processed Data**: `temp/processed_data/{model_name}_{uuid}.csv`
+- **Evaluated Data**: `temp/evaluated_data/evaluated_{model1}_{model2}_{uuid}.csv`
+- **Results**: `temp/results/evaluation_{filename}.json`
+
+## Evaluation Results
+
+### Answer Generation Settings
+- **Temperature**: 0.3 (used for all model generations)
+
+### Model Performance Scores
+The following scores were obtained using LLM-as-Judge evaluation methodology:
+
+| Model | Score |
+|-------|--------|
+| claude-sonnet-4 | 0.751 |
+| gemini-2.5-pro | 0.608 |
+| gpt-5.1-codex | 0.728 |
+| gpt-o4-mini | 0.618 |
+| glm-4.5 | 0.673 |  
+
+<img width="3570" height="2367" alt="model_accuracy_comparison (2)" src="https://github.com/user-attachments/assets/d3341d6a-badd-4bcd-a014-e0251511f8a2" />
+
+
+### Evaluation Settings
+- **Judge Model**: gemini-flash-2.0 from Vertex AI
+- **Judge Temperature**: 0.2 (default)
+
+## Contributing
+
+1. Add new LLM providers to `llm_clients.py`
+2. Update provider documentation in `generate_answers/ReadMe`
+3. Add new evaluation metrics to `evaluations/llm_as_judge.py`
+4. Update tests and documentation
+
+## Citation
+
+If you find Curator Evals useful, do not forget to cite us!
+
+```
+@misc{kadiyala2025dsbcdatascience,
+      title={DSBC : Data Science task Benchmarking with Context engineering}, 
+      author={Ram Mohan Rao Kadiyala and Siddhant Gupta and Jebish Purbey and Giulio Martini and Ali Shafique and Suman Debnath and Hamza Farooq},
+      year={2025},
+      eprint={2507.23336},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2507.23336}, 
+}
+```

@@ -2,8 +2,6 @@ __pycache__/
 .vscode/
 .DS_Store
 *.pyc
-data_analysis/.env
-*.env
 *.ipynb_checkpoints
 data_analysis/.ipynb_checkpoints
 data_analysis/data_old.zip
@@ -14,3 +12,8 @@ data_analysis/openrouter_testing_v3.py
 data_analysis/folder_management.py
 data_analysis/test_results
 .claude/
+data_analysis/MISC
+figures
+data_modeling
+README_.md
+LICENSE

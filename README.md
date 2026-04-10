@@ -5,7 +5,7 @@ This repository evaluates Large Language Models on the [DSBench (Data Analysis)]
 We have used a subset of **DSBench (Data Analysis)** for this experiment, comprising 22 challenges (236 questions).
 
 
-## Quick Start (3 Steps)
+## Quick Start
 
 ### 1. Install Conda environment and Dependencies
 ```bash

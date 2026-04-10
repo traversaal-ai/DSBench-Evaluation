@@ -66,7 +66,7 @@ dsbc_evaluation/
 │   ├── <model_name>/          # Model Name based sub-directory
     .
     │
-└── requirments.txt           # Python dependencies
+└── requirements.txt           # Python dependencies
 
 ```
 

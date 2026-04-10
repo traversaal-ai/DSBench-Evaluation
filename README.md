@@ -82,12 +82,12 @@ dsbc_evaluation/
 
 ## Evaluation Results
 
-| Model | Accuracy |
+| **Model** | **Accuracy** |
 |-------|--------|
 | Claude Opus-4.5 | 26.69 % |
 | GPT-5.2 | 33.33% |
 | GLM-5 | 5.51 % |
-| Olive OS | 75.8 %
+| **Olive OS** | **75.8 %** |
 
 <img width="480" height="281" alt="dsbench_comparison" src="https://github.com/user-attachments/assets/0b853bfc-4e72-4284-84c0-15ddbc45ccba" />
 

@@ -2,7 +2,7 @@
 
 This repository evaluates Large Language Models on the [DSBench (Data Analysis)](https://github.com/LiqiangJing/DSBench/tree/main/data_analysis) dataset. It systematically tests LLM capabilities in data science code generation by generating responses to complex data science questions and evaluating them using LLM-based judge.
 
-We have used a subset of DSBench (Data Analysis) for this experiment.
+We have used a subset of **DSBench (Data Analysis)** for this experiment, comprising 22 challenges (236 questions).
 
 
 ## Quick Start (3 Steps)
